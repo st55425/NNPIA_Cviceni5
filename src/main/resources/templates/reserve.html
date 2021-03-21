@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<header th:replace="fragments/navigation :: navbar"></header>
+
+<h2 class="text-center">Rezervovat následující hodiny:</h2>
+<section class="container d-flex justify-content-center">
+    <div class="margin" th:each="court : ${courts.entrySet()}">
+        <h3 th:text="${court.getKey().name}"></h3>
+        <div class="border" th:each="unit : ${court.getValue()}">
+            <p th:text="${unit.from} + ' - ' + ${unit.to} "></p>
+            <a class="btn btn-light btn-sm"  th:href="@{/reserve/remove/{id}(id=${unit.id})}" th:text="'zrušit rezervaci'"></a>
+        </div>
+    </div>
+</section>
+<a class="btn btn-light btn-lg" th:href="@{/reserve/checkout}">Rezervovat</a>
+</body>
+</html>

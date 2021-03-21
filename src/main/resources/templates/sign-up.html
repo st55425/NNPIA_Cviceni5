@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<header th:replace="fragments/navigation :: navbar"></header>
+<body>
+<h1>Sign up</h1>
+<form action="#" th:action="@{/sing-up-process}" th:object="${signup}" method="post">
+    <p>Username: <input required type="text" th:field="*{username}" /></p>
+    <p>First name: <input required type="text" th:field="*{firstName}" /></p>
+    <p>Surname: <input required type="text" th:field="*{surname}" /></p>
+    <p>password: <input required type="password" th:field="*{password}" /></p>
+    <p><input type="submit" value="Login" /></p>
+</form>
+</body>
+</html>
