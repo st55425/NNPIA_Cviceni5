@@ -16,7 +16,7 @@ public class Reservation {
 
     private Boolean confirmed;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User user;
 
     @OneToMany(mappedBy = "reservation")
