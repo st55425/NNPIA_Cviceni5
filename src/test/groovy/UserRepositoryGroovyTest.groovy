@@ -1,5 +1,5 @@
 import cz.upce.nnpia_cv5.NnpiaCviceni4Application
-import cz.upce.nnpia_cv5.datafactory.UserTestDataFactory
+import cz.upce.nnpia_cv5.datafactory.Creator
 import cz.upce.nnpia_cv5.entity.User;
 import cz.upce.nnpia_cv5.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -16,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = NnpiaCviceni4Application.class)
-@Import(UserTestDataFactory.class)
+@Import(Creator.class)
 class UserRepositoryGroovyTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     @Autowired
-    UserTestDataFactory userTestDataFactory;
+    Creator creator;
 
     @Autowired
     UserRepository repository;
@@ -28,7 +28,7 @@ class UserRepositoryGroovyTest extends AbstractTransactionalJUnit4SpringContextT
     @Test
     void findByUsernameTest(){
         String testUsername = "test";
-        userTestDataFactory.saveUser(new User(username: testUsername))
+        creator.saveEntity(new User(username: testUsername))
         User actual = repository.findByUsername(testUsername);
         assertEquals(testUsername, actual.getUsername());
     }

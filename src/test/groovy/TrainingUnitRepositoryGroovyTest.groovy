@@ -1,10 +1,7 @@
 import cz.upce.nnpia_cv5.NnpiaCviceni4Application
-import cz.upce.nnpia_cv5.datafactory.CourtTestDataFactory
-import cz.upce.nnpia_cv5.datafactory.ReservationTestDataFactory
-import cz.upce.nnpia_cv5.datafactory.TrainingUnitTestDataFactory
-import cz.upce.nnpia_cv5.datafactory.UserTestDataFactory
+import cz.upce.nnpia_cv5.datafactory.Creator
 import cz.upce.nnpia_cv5.entity.Court
-import cz.upce.nnpia_cv5.entity.Reservation;
+
 import cz.upce.nnpia_cv5.entity.TrainingUnit
 import cz.upce.nnpia_cv5.repository.TrainingUnitRepository;
 import org.junit.jupiter.api.Test;
@@ -24,21 +21,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ContextConfiguration(classes = NnpiaCviceni4Application.class)
-@Import([TrainingUnitTestDataFactory.class, CourtTestDataFactory.class, ReservationTestDataFactory.class, UserTestDataFactory.class])
+@Import(Creator.class)
 class TrainingUnitRepositoryGroovyTest {
 
     @Autowired
-    TrainingUnitTestDataFactory trainingUnitTestDataFactory;
-
-    @Autowired
-    ReservationTestDataFactory reservationTestDataFactory;
+    Creator creator;
 
     @Autowired
     TrainingUnitRepository repository;
 
     @Test
     void findByCourtAndFromBetweenTest(){
-        Court court = trainingUnitTestDataFactory.saveTrainingUnit(new TrainingUnit()).getCourt();
+        Court court = ((TrainingUnit)creator.saveEntity(new TrainingUnit())).getCourt();
         List<TrainingUnit> units = repository.findByCourtAndFromBetween(court,
                 LocalDateTime.now().minusHours(1),
                 LocalDateTime.now());
@@ -48,9 +42,8 @@ class TrainingUnitRepositoryGroovyTest {
 
     @Test
     void findByReservationNotNullAndCourt() {
-        Court court = trainingUnitTestDataFactory.saveTrainingUnit(
-                new TrainingUnit(reservation: reservationTestDataFactory.
-                        saveReservation(new Reservation()))).getCourt();
+        Court court = ((TrainingUnit)creator.saveEntity(
+                new TrainingUnit())).getCourt();
 
         List<TrainingUnit> units = repository.findByReservationNotNullAndCourt(court);
         assertTrue(units.size() ==1);
