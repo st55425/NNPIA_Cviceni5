@@ -1,4 +1,4 @@
-import cz.upce.nnpia_cv5.NnpiaCviceni4Application
+import cz.upce.nnpia_cv5.NnpiaCviceni5Application
 import cz.upce.nnpia_cv5.datafactory.Creator
 import cz.upce.nnpia_cv5.entity.Court
 
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@ContextConfiguration(classes = NnpiaCviceni4Application.class)
+@ContextConfiguration(classes = NnpiaCviceni5Application.class)
 @Import(Creator.class)
 class TrainingUnitRepositoryGroovyTest {
 

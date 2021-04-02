@@ -28,7 +28,7 @@ public class User {
 
     private Boolean blocked;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Reservation> reservation;
 
 }
